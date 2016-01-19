@@ -1,0 +1,22 @@
+{
+  "service": {
+    "name": "jenkins",
+    "tags": ["jenkins", "ci"],
+    "address": "jenkins.starvisitor.com",
+    "port": 80,
+    "checks": [{
+      "id": "api",
+      "name": "HTTP API on port 80",
+      "http": "http://jenkins.starvisitor.com/api/json",
+      "interval": "10s",
+      "timeout": "1s"
+    },
+    {
+      "id": "api",
+      "name": "HTTP API on port 8000",
+      "http": "http://localhost:8000/api/json",
+      "interval": "10s",
+      "timeout": "1s"
+    }]
+  }
+}

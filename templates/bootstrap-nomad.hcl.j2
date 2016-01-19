@@ -1,0 +1,9 @@
+log_level = "DEBUG"
+datacenter = "{{ nomad.datacenter | default('dc-1') }}"
+data_dir = "{{ nomad.datadir | default('/var/nomad/data') }}"
+bind_addr = "{{ nomad.bind_addr }}"
+name = "{{ inventory_hostname }}"
+server {
+    enabled = true
+    bootstrap_expect = {{ nomad.bootstrap_expect }}
+}

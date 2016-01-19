@@ -1,0 +1,84 @@
+---
+- name: Sets Nomad arch -> linux_amd64
+  set_fact:
+    arch: linux_amd64
+  when: ansible_system == "Linux"
+
+- name: Sets Nomad arch -> darwin_amd64
+  set_fact:
+    arch: darwin_amd64
+  when: ansible_system == "Darwin"
+
+- name: Creates configuration directories
+  file:
+    path="{{ item }}"
+    owner={{ nomad.user | default('root') }}
+    group={{ nomad.user  | default('staff') }}
+    mode=755
+    state=directory
+  sudo: yes
+  with_items:
+    - "{{ nomad.dirs }}"
+  tags:
+    - hashicorp
+    - nomad
+    - install
+    - setup
+
+
+- name: Setup nomad config @ bootstrap box
+  when: "'nomad-bootstrap' in {{ group_names }}"
+  template:
+    src="../templates/bootstrap-nomad.hcl.j2"
+    dest="{{ nomad.config.dir }}/config.hcl"
+    force=yes
+    owner={{ nomad.user }}
+    group={{ nomad.group }}
+  sudo: yes
+  register: bootstrap_obj
+  tags:
+    - nomad
+    - setup
+    - config
+
+- name: Setup nomad config @  server boxes
+  when: "'nomad-servers' in {{ group_names }} and 'nomad-bootstrap' not in {{ group_names }}"
+  template:
+    src="../templates/bootstrap-nomad.hcl.j2"
+    dest="{{ nomad.config.dir }}/config.hcl"
+    force=yes
+    owner={{ nomad.user }}
+    group={{ nomad.group }}
+  sudo: yes
+  tags:
+    - nomad
+    - setup
+    - config
+
+- name: Setup nomad config @ client boxes
+  when: "'nomad-clients' in {{ group_names }}"
+  template:
+    src="../templates/bootstrap-client.hcl.j2"
+    dest="{{ nomad.config.dir }}/config.hcl"
+    force=yes
+    group={{ nomad.group }}
+    owner={{ nomad.user }}
+  sudo: yes
+  tags:
+    - nomad
+    - setup
+    - config
+
+- name: Setup nomad service config file
+  template:
+    src="../templates/nomad.conf.j2"
+    dest="{{ nomad.config.service_file }}"
+    owner=root
+    group=root
+  sudo: yes
+  tags:
+    - nomad
+    - setup
+    - config
+
+

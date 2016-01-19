@@ -1,0 +1,22 @@
+{
+  "service": {
+    "name": "nexus",
+    "tags": ["nexus", "ci"],
+    "address": "nexus.starvisitor.com",
+    "port": 80,
+    "checks": [{
+      "id": "api",
+      "name": "HTTP API on port 80",
+      "http": "http://nexus.starvisitor.com/api/json",
+      "interval": "10s",
+      "timeout": "1s"
+    },
+    {
+      "id": "api",
+      "name": "HTTP API on port 8001",
+      "http": "http://localhost:8081/api/json",
+      "interval": "10s",
+      "timeout": "1s"
+    }]
+  }
+}

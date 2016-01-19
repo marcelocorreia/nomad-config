@@ -1,0 +1,23 @@
+galaxy_info:
+  author: Marcelo Correia
+  company: BulletProof
+  description: "Configures Hashicorp's Nomad cluster."
+  min_ansible_version: 1.4
+  license: MIT
+  platforms:
+  - name: Debian
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  categories:
+  - System
+  - Development
+  - Consul
+  - DNSMasq
+
+dependencies:
+  - { role: marcelocorreia.apt }
+  - { role: HanXHX.nginx }
+  - { role: marcelocorreia.hashicorp-pack}
