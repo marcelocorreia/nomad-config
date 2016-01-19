@@ -18,6 +18,3 @@ galaxy_info:
   - DNSMasq
 
 dependencies:
-  - { role: marcelocorreia.apt }
-  - { role: HanXHX.nginx }
-  - { role: marcelocorreia.hashicorp-pack}

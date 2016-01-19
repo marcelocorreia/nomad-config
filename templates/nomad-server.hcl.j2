@@ -1,0 +1,14 @@
+# Increase log verbosity
+log_level = "DEBUG"
+datacenter = "hq-mgmt"
+data_dir = "/var/nomad/data"
+bind_addr = "{{ inventory_hostname }}"
+name = "{{ inventory_hostname}}"
+# Enable the server
+server {
+    consul {
+        token = "{{ consul_encrypt_key }}"
+    }
+    enabled = true
+    start_join = ["hq-mgmt-bootstrap-1.int.products.bulletproof.net:4648"]
+}

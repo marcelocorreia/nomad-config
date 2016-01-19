@@ -1,6 +1,7 @@
 ---
 nomad:
   user: root
+  group: root
   datacenter: "{{ nomad_datacenter | default('dc1') }}"
   bootstrap_expect: "{{ nomad_bootstrap_expect | default('1') }}"
   iface: "{{ nomad_iface | default('eth0') }}"

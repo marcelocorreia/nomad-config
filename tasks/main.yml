@@ -9,11 +9,16 @@
     arch: darwin_amd64
   when: ansible_system == "Darwin"
 
+- name: xota
+  debug: msg="{{ hostvars }}"
+  tags:
+    - xota
+
 - name: Creates configuration directories
   file:
     path="{{ item }}"
     owner={{ nomad.user | default('root') }}
-    group={{ nomad.user  | default('staff') }}
+    group={{ nomad.group  | default('staff') }}
     mode=755
     state=directory
   sudo: yes
@@ -29,7 +34,7 @@
 - name: Setup nomad config @ bootstrap box
   when: "'nomad-bootstrap' in {{ group_names }}"
   template:
-    src="../templates/bootstrap-nomad.hcl.j2"
+    src="../templates/nomad-bootstrap.hcl.j2"
     dest="{{ nomad.config.dir }}/config.hcl"
     force=yes
     owner={{ nomad.user }}
@@ -44,7 +49,7 @@
 - name: Setup nomad config @  server boxes
   when: "'nomad-servers' in {{ group_names }} and 'nomad-bootstrap' not in {{ group_names }}"
   template:
-    src="../templates/bootstrap-nomad.hcl.j2"
+    src="../templates/nomad-server.hcl.j2"
     dest="{{ nomad.config.dir }}/config.hcl"
     force=yes
     owner={{ nomad.user }}
@@ -58,7 +63,7 @@
 - name: Setup nomad config @ client boxes
   when: "'nomad-clients' in {{ group_names }}"
   template:
-    src="../templates/bootstrap-client.hcl.j2"
+    src="../templates/nomad-client.hcl.j2"
     dest="{{ nomad.config.dir }}/config.hcl"
     force=yes
     group={{ nomad.group }}

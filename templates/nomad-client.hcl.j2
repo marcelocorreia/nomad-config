@@ -1,0 +1,15 @@
+# Increase log verbosity
+log_level = "DEBUG"
+datacenter = "{{ nomad.datacenter | default('dc-1') }}"
+data_dir = "{{ nomad.datadir | default('/var/nomad/data') }}"
+bind_addr = "{{ inventory_hostname }}"
+name = "{{ inventory_hostname }}"
+
+client {
+  enabled = true
+  consul {
+    token = "{{ consul_encrypt_key }}"
+  }
+  servers = ["hq-mgmt-bootstrap-1.int.products.bulletproof.net:4647","hq-mgmt-bootstrap-2.int.products.bulletproof.net:4647","hq-mgmt-bootstrap-3.int.products.bulletproof.net:4647"]
+
+}
