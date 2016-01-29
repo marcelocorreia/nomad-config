@@ -1,9 +1,14 @@
-log_level = "DEBUG"
-datacenter = "{{ nomad.datacenter | default('dc-1') }}"
-data_dir = "{{ nomad.datadir | default('/var/nomad/data') }}"
+log_level = "{{ nomad.log_level }}"
+datacenter = "{{ nomad.datacenter }}"
+data_dir = "{{ nomad.datadir }}"
 bind_addr = "{{ inventory_hostname }}"
 name = "{{ inventory_hostname }}"
 server {
+{% if consul_encrypt_key%}
+    consul {
+        token = "{{ consul_encrypt_key }}"
+    }
+{% elif consul_encrypt_key %}
     enabled = true
     bootstrap_expect = {{ nomad.bootstrap_expect }}
 }

@@ -1,14 +1,15 @@
-# Increase log verbosity
-log_level = "DEBUG"
-datacenter = "hq-mgmt"
-data_dir = "/var/nomad/data"
+log_level = "{{ nomad.log_level | default('INFO') }}"
+datacenter = "{{ nomad_datacenter | default('dc-1') }}"
+data_dir = "{{ nomad_datadir | default('/var/nomad/data') }}"
 bind_addr = "{{ inventory_hostname }}"
 name = "{{ inventory_hostname}}"
 # Enable the server
 server {
+{% if consul_encrypt_key%}
     consul {
         token = "{{ consul_encrypt_key }}"
     }
+{% elif consul_encrypt_key %}
     enabled = true
-    start_join = ["hq-mgmt-bootstrap-1.int.products.bulletproof.net:4648"]
+    start_join = [{% for host in groups['nomad-servers'] %}"{{ hostvars[host]['inventory_hostname']}}"{% if not loop.last %},{% endif %}{% endfor %}]
 }
