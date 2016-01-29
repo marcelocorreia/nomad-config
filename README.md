@@ -5,25 +5,14 @@ Installs and Configures [Hasicorp's Nomad ] (https://nomadproject.io) Cluster.
 It uses ansible inventory to configure the whole cluster. Can also be used 
 combined with the role [consul-dnsmasq] (https://github.com/marcelocorreia/consul-dnsmasq). 
 
-## Inventory
+
+## Inventory for Nomad alone
 
 ```
 bootstrap[1:2].local ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/key.pem
 server[1:3].local ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/key.pem
-client[1:13].local ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/key.pem
+worker[1:13].local ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/key.pem
 anotherclient.com ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/key.pem
-
-
-[consul-bootstrap]
-bootstrap[1:2].local
-
-[consul-servers]
-server[1:3].local
-
-[consul-clients]
-client[1:13].local
-anotherclient.local
-wholebunchofclients[1:50]
 
 [nomad-bootstrap]
 bootstrap[1:2].local
@@ -32,7 +21,39 @@ bootstrap[1:2].local
 server[1:3].local
 
 [nomad-clients]
-client[1:21].local
+worker[1:21].local
+anotherclient.local
+
+```
+
+
+## Inventory for Nomad + Consul 
+
+```
+bootstrap[1:2].local ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/key.pem
+server[1:3].local ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/key.pem
+client[1:13].local ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/key.pem
+anotherclient.com ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/key.pem
+
+[consul-bootstrap]
+bootstrap[1:2].local
+
+[consul-servers]
+server[1:3].local
+
+[consul-clients]
+worker[1:13].local
+anotherclient.local
+wholebunchofclients[1:50].whatever.io
+
+[nomad-bootstrap]
+bootstrap[1:2].local
+
+[nomad-servers]
+server[1:3].local
+
+[nomad-clients]
+worker[1:21].local
 anotherclient.local
 
 ```
