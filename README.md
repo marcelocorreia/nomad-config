@@ -3,12 +3,12 @@
 Installs and Configures [Hashicorp's Nomad] (https://nomadproject.io) Cluster.
 
 
-
 It uses ansible inventory to configure the whole cluster. Can also be used 
 combined with the role [consul-dnsmasq] (https://github.com/marcelocorreia/consul-dnsmasq). 
 
 
 ## Inventory for Nomad alone
+## Example for Nomad alone inventory
 
 ```
 bootstrap[1:2].local ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/key.pem
@@ -29,7 +29,7 @@ anotherclient.local
 ```
 
 
-## Inventory for Nomad + Consul 
+## Example for Nomad + Consul inventory  
 
 ```
 bootstrap[1:2].local ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/key.pem
