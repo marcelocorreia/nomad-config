@@ -1,8 +1,8 @@
-# nomad-config
+# nomad-config ![Nomad by Hashicorp](https://www.nomadproject.io/assets/images/logo-header-f33e7fb0.png)
 
 Installs and Configures [Hashicorp's Nomad] (https://nomadproject.io) Cluster.
 
-![Nomad by Hashicorp](https://www.nomadproject.io/assets/images/logo-header-f33e7fb0.png)Nomad by [Hashicorp](http://www.hashicorp.com)
+
 
 It uses ansible inventory to configure the whole cluster. Can also be used 
 combined with the role [consul-dnsmasq] (https://github.com/marcelocorreia/consul-dnsmasq). 
