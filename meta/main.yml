@@ -17,4 +17,4 @@ galaxy_info:
   - Consul
   - DNSMasq
 
-dependencies:
+dependencies: []
