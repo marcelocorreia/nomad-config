@@ -6,8 +6,6 @@ Installs and Configures [Hashicorp's Nomad] (https://nomadproject.io) Cluster.
 It uses ansible inventory to configure the whole cluster. Can also be used 
 combined with the role [consul-dnsmasq] (https://github.com/marcelocorreia/consul-dnsmasq). 
 
-
-## Inventory for Nomad alone
 ## Example for Nomad alone inventory
 
 ```
