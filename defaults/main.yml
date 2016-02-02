@@ -7,6 +7,7 @@ nomad:
   bootstrap_expect: "{{ nomad_bootstrap_expect | default('1') }}"
   iface: "{{ nomad_iface | default('eth0') }}"
   log_level: "{{ nomad_log_level | default('info') }}"
+  join_port: "{{ nomad_join_port | default('4648}}"
   dirs:
     - "/etc/nomad.d"
     - "/var/nomad"

@@ -11,5 +11,5 @@ server {
     }
 {% endif %}
     enabled = true
-    start_join = [{% for host in groups['nomad-bootstrap'] %}"{{ hostvars[host]['inventory_hostname']}}"{% if not loop.last %},{% endif %}{% endfor %}]
+    start_join = [{% for host in groups['nomad-bootstrap'] %}"{{ hostvars[host]['inventory_hostname']}}:{{ nomad.join_port }}"{% if not loop.last %},{% endif %}{% endfor %}]
 }
