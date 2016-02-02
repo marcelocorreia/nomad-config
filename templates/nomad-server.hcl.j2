@@ -9,7 +9,7 @@ server {
     consul {
         token = "{{ consul_encrypt_key }}"
     }
-{% elif consul_encrypt_key %}
+{% endif %}
     enabled = true
     start_join = [{% for host in groups['nomad-servers'] %}"{{ hostvars[host]['inventory_hostname']}}"{% if not loop.last %},{% endif %}{% endfor %}]
 }

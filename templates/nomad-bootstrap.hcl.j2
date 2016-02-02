@@ -8,7 +8,7 @@ server {
     consul {
         token = "{{ consul_encrypt_key }}"
     }
-{% elif consul_encrypt_key %}
+{% endif %}
     enabled = true
     bootstrap_expect = {{ nomad.bootstrap_expect }}
 }
