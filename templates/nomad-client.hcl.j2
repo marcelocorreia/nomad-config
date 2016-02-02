@@ -11,5 +11,5 @@ client {
         token = "{{ consul_encrypt_key }}"
     }
 {% endif %}
-    servers = [{% for host in groups['nomad-clients'] %}"{{ hostvars[host]['inventory_hostname']}}"{% if not loop.last %},{% endif %}{% endfor %}]
+    servers = [{% for host in groups['nomad-servers'] %}"{{ hostvars[host]['inventory_hostname']}}"{% if not loop.last %},{% endif %}{% endfor %}]
 }
