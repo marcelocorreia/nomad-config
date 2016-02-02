@@ -9,6 +9,7 @@ nomad:
   log_level: "{{ nomad_log_level | default('info') }}"
   dirs:
     - "/etc/nomad.d"
+    - "/var/nomad"
   config:
     dir: "/etc/nomad.d"
     service_file: "{{ nomad_config_service_file | default('/etc/init/nomad.conf') }}"
