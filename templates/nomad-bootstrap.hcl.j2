@@ -1,12 +1,12 @@
-log_level = "{{ nomad.log_level | default('INFO') }}"
-datacenter = "{{ nomad_datacenter | default('dc-1') }}"
-data_dir = "{{ nomad_datadir | default('/var/nomad/data') }}"
+log_level = "{{ nomad.log_level }}"
+datacenter = "{{ nomad.datacenter }}"
+data_dir = "{{ nomad_datadir }}"
 bind_addr = "{{ inventory_hostname }}"
 name = "{{ inventory_hostname }}"
 server {
-{% if consul_encrypt_key%}
+{% if consul.encrypt_key != 'none' %}
     consul {
-        token = "{{ consul_encrypt_key }}"
+        token = "{{ consul.encrypt_key }}"
     }
 {% endif %}
     enabled = true
