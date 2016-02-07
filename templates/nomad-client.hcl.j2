@@ -5,6 +5,9 @@ bind_addr = "{{ inventory_hostname }}"
 name = "{{ inventory_hostname }}"
 
 client {
+    options = {
+        "driver.raw_exec.enable" = "1"
+    }
     enabled = true
     network_interface = "{{ nomad.iface }}"
 {% if consul.encrypt_key != 'none' %}
