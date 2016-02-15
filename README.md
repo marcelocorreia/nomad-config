@@ -1,10 +1,10 @@
 # nomad-config ![Nomad by Hashicorp](https://www.nomadproject.io/assets/images/logo-header-f33e7fb0.png)
 
-Installs and Configures [Hashicorp's Nomad](https://nomadproject.io) Cluster.
+Configures [Hashicorp's Nomad](https://nomadproject.io) Cluster.
 
 Nomad should be installed in the path, certain features of Nomad are only available if running as root. 
 You are welcome to use the role [marcelocorreia.hashicorp-pack](https://github.com/marcelocorreia/hashicorp-pack), 
-but is not a mandatory dependency. You should provision ans plan permissions as you need.
+but is not a mandatory dependency. You are free to provision and plan permissions as you need.
 
 It uses ansible inventory to configure the whole cluster. Can also be used 
 combined with the role [marcelocorreia.consul-dnsmasq](https://github.com/marcelocorreia/consul-dnsmasq). 
