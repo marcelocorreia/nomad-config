@@ -80,3 +80,36 @@
     - nomad
     - setup
     - config
+
+- name: Start Nomad boostrap
+  service: name=nomad state=started
+  tags:
+    - nomad
+    - service
+
+
+- name: Setup Nomad's Env Vars
+  template:
+    src="../templates/nomad.sh.j2"
+    dest="/etc/profile.d/nomad.sh"
+    owner=root
+    group=root
+    mode=644
+  sudo: yes
+  tags:
+    - nomad
+    - env_vars
+
+- name: Restart Nomad boostrap
+  service: name=nomad state=restarted
+  when: "'nomad-bootstrap' in {{ group_names }}"
+  tags:
+    - nomad
+    - service
+
+- name: Restart Nomad servers and clients
+  service: name=consul state=restarted
+  when: "'nomad-bootstrap' not in {{ group_names }}"
+  tags:
+    - nomad
+    - service
