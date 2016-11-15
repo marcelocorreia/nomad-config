@@ -27,7 +27,7 @@
 
 
 - name: Setup nomad config @ bootstrap box
-  when: "'nomad-bootstrap' in {{ group_names }}"
+  when: "'nomad-bootstrap' in group_names"
   template:
     src="../templates/nomad-bootstrap.hcl.j2"
     dest="{{ nomad.config.dir }}/config.hcl"
@@ -42,7 +42,7 @@
     - config
 
 - name: Setup nomad config @  server boxes
-  when: "'nomad-servers' in {{ group_names }} and 'nomad-bootstrap' not in {{ group_names }}"
+  when: "'nomad-servers' in group_names and 'nomad-bootstrap' not in group_names" 
   template:
     src="../templates/nomad-server.hcl.j2"
     dest="{{ nomad.config.dir }}/config.hcl"
@@ -56,7 +56,7 @@
     - config
 
 - name: Setup nomad config @ client boxes
-  when: "'nomad-clients' in {{ group_names }}"
+  when: "'nomad-clients' in group_names"
   template:
     src="../templates/nomad-client.hcl.j2"
     dest="{{ nomad.config.dir }}/config.hcl"
@@ -102,14 +102,14 @@
 
 - name: Restart Nomad boostrap
   service: name=nomad state=restarted
-  when: "'nomad-bootstrap' in {{ group_names }}"
+  when: "'nomad-bootstrap' in group_names"
   tags:
     - nomad
     - service
 
 - name: Restart Nomad servers and clients
   service: name=consul state=restarted
-  when: "'nomad-bootstrap' not in {{ group_names }}"
+  when: "'nomad-bootstrap' not in group_names"
   tags:
     - nomad
     - service
